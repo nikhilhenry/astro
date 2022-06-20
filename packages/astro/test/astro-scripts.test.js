@@ -66,6 +66,7 @@ describe('Scripts (hoisted and not)', () => {
 
 		let el = $('script').get(1);
 		let entryURL = $(el).attr('src');
+		console.log("WHA", entryURL)
 		let externalEntryJS = await fixture.readFile(entryURL);
 
 		// test 2: the JS exists

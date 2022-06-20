@@ -48,13 +48,20 @@ export function vitePluginHoistedScripts(
 					output.facadeModuleId &&
 					virtualHoistedEntry(output.facadeModuleId)
 				) {
+					let removeFromBundle = false;
 					const facadeId = output.facadeModuleId!;
 					const pages = internals.hoistedScriptIdToPagesMap.get(facadeId)!;
 					for (const pathname of pages) {
 						const vid = viteID(new URL('.' + pathname, astroConfig.root));
 						const pageInfo = getPageDataByViteID(internals, vid);
 						if (pageInfo) {
-							pageInfo.hoistedScript = id;
+							pageInfo.hoistedScript = {
+								type: 'inline',
+								value: output.code
+							};
+
+							//pageInfo.hoistedScript = id;
+							console.log("PAGE INFO", pageInfo.hoistedScript)
 						}
 					}
 				}
